@@ -1,0 +1,29 @@
+name: Docker Build and Run
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout the repo
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Install Docker
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      # 3️⃣ Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t aeon-mltb:latest .
+
+      # 4️⃣ Run Docker container
+      - name: Run Docker container
+        run: |
+          docker run --rm aeon-mltb:latest
